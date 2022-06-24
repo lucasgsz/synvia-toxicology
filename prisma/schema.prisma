@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ToxicologyReport {
+  id              String       @id @default(uuid())
+  codigo_amostra  String       @db.VarChar(8)
+  cocaina         Float
+  anfetamina      Float
+  metanfetamina   Float
+  mda             Float
+  mdma            Int
+  thc             Float
+  morfina         Float
+  codeina         Float
+  heroina         Float
+  benzoilecgonina Int
+  cocaetileno     Int
+  norcocaina      Int
+  laudo_status    StatusReport @default(NEGATIVO)
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  address   String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum StatusReport {
+  POSITIVO
+  NEGATIVO
+}

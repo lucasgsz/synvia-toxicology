@@ -1,0 +1,27 @@
+version: '3.9'
+
+x-env: &pg_env
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: 5432
+  POSTGRES_DB: postgres
+  POSTGRES_USER: synvia
+  POSTGRES_PASSWORD: synvia
+
+services:    
+
+  postgres:
+    image: postgres:14
+    networks:
+      - internal
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      <<: *pg_env
+    ports:
+    - "5433:5432" # if you want to use a different port than 5432
+
+networks:
+  internal:
+
+volumes:
+  pgdata:
